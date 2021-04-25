@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Posts;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
  //   auth()->user()->assignRole('admin');
     return view('dashboard');
 })->name('dashboard');
+
+Route::group(['middleware' => ['auth:sanctum','role:admin']], function()
+{
+Route::get('/admin/posts', Posts::class)->name('posts.index');
+});
